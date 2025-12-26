@@ -1,0 +1,213 @@
+/* ============================================
+   PRISM.JS - WARM STUDY THEME
+   A syntax highlighting theme that feels like
+   reading code by lamplight in a walnut study.
+   ============================================ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #f5efe6; /* cream */
+  background: none;
+  font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+  font-size: 0.9rem;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.6;
+  tab-size: 2;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  background-color: #151010;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  overflow: auto;
+  border-radius: 4px;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.3),
+    0 1px 0 rgba(255, 255, 255, 0.03);
+  border-left: 3px solid #8a7020;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  background: #2a2018;
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+  white-space: normal;
+}
+
+/* --------- Token Colors --------- */
+
+/* Comments - muted, like pencil notes in margins */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6b5d4d;
+  font-style: italic;
+}
+
+/* Punctuation */
+.token.punctuation {
+  color: #a89a8c;
+}
+
+/* Namespace */
+.token.namespace {
+  opacity: 0.8;
+}
+
+/* Strings - soft sage green, like old book bindings */
+.token.string,
+.token.attr-value {
+  color: #9cac7c;
+}
+
+/* Keywords - burnished gold */
+.token.keyword,
+.token.control,
+.token.directive,
+.token.unit {
+  color: #c9a227;
+}
+
+/* Operators */
+.token.operator {
+  color: #d4c4a8;
+}
+
+/* Booleans, numbers - warm amber */
+.token.boolean,
+.token.number {
+  color: #d4955a;
+}
+
+/* Functions - lighter cream, prominent */
+.token.function {
+  color: #e8dcc8;
+}
+
+/* Classes, types - soft copper */
+.token.class-name,
+.token.builtin {
+  color: #d4a574;
+}
+
+/* Properties */
+.token.property {
+  color: #c9a227;
+}
+
+/* Variables - cream */
+.token.variable {
+  color: #f5efe6;
+}
+
+/* Tags (HTML) */
+.token.tag {
+  color: #d4955a;
+}
+
+/* Attribute names */
+.token.attr-name {
+  color: #c9a227;
+}
+
+/* Selectors (CSS) */
+.token.selector {
+  color: #c9a227;
+}
+
+/* Regex */
+.token.regex {
+  color: #9cac7c;
+}
+
+/* Important, bold */
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+/* Italic */
+.token.italic {
+  font-style: italic;
+}
+
+/* Inserted */
+.token.inserted {
+  color: #9cac7c;
+}
+
+/* Deleted */
+.token.deleted {
+  color: #c97272;
+}
+
+/* --------- Line Highlighting --------- */
+
+pre[data-line] {
+  position: relative;
+  padding-left: 3em;
+}
+
+.line-highlight {
+  background: linear-gradient(
+    to right,
+    rgba(201, 162, 39, 0.15) 70%,
+    transparent
+  );
+  position: absolute;
+  left: 0;
+  right: 0;
+  line-height: inherit;
+  margin-top: 1.5rem; /* match pre padding */
+}
+
+.line-highlight::before,
+.line-highlight[data-end]::after {
+  content: attr(data-start);
+  position: absolute;
+  left: 0.6em;
+  color: #6b5d4d;
+  font-size: 0.8em;
+}
+
+.line-highlight[data-end]::after {
+  content: attr(data-end);
+  top: auto;
+  bottom: 0.4em;
+}
+
+/* --------- Line Numbers --------- */
+
+.line-numbers .line-numbers-rows {
+  border-right: 1px solid #3a2a1a;
+}
+
+.line-numbers-rows > span::before {
+  color: #4a3a2a;
+}
+
+/* --------- Selection --------- */
+
+code[class*="language-"]::selection,
+code[class*="language-"] *::selection,
+pre[class*="language-"]::selection,
+pre[class*="language-"] *::selection {
+  background: rgba(201, 162, 39, 0.3);
+}
+
+/* --------- Print --------- */
+
+@media print {
+  code[class*="language-"],
+  pre[class*="language-"] {
+    text-shadow: none;
+  }
+}

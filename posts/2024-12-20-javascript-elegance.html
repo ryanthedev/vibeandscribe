@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finding Elegance in JavaScript - The Study</title>
+  <meta name="description" content="Code can be poetry. Let's explore what makes code feel beautiful.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;1,7..72,400;1,7..72,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/prism-warm.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="site-title">The Study</a>
+      <nav class="site-nav">
+        <a href="/">writing</a>
+        <a href="/about.html">about</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="post">
+      <div class="container">
+        <header class="post__header">
+          <div class="post__date">December 20, 2024</div>
+          <h1 class="post__title">Finding Elegance in JavaScript</h1>
+        </header>
+
+        <div class="post__content">
+          <p>
+            Code can be poetry. Not in the flowery sense, but in the way a well-crafted function
+            can express an idea with economy and grace. There's a satisfaction in writing code that
+            does exactly what it needs to—nothing more, nothing less.
+          </p>
+
+          <p>
+            Consider the humble array method. In less expressive languages, filtering a list
+            requires loops, conditions, temporary variables. In JavaScript, we can write:
+          </p>
+
+          <pre class="language-javascript"><code>const ripeApples = apples.filter(apple => apple.isRipe);</code></pre>
+
+          <p>
+            There's something pleasing about that. The intent is clear. The mechanism fades
+            into the background, leaving only the idea.
+          </p>
+
+          <h2>The Shape of Clarity</h2>
+
+          <p>
+            Elegance isn't about cleverness. Clever code is often the enemy of maintainable code.
+            True elegance comes from clarity—from code that reads almost like prose.
+          </p>
+
+          <pre class="language-javascript"><code>async function fetchUserPosts(userId) {
+  const user = await getUser(userId);
+
+  if (!user) {
+    return { error: 'User not found', posts: [] };
+  }
+
+  const posts = await getPosts(user.id);
+
+  return {
+    user: user.name,
+    posts: posts.map(post => ({
+      title: post.title,
+      date: formatDate(post.createdAt),
+      excerpt: truncate(post.body, 100)
+    }))
+  };
+}</code></pre>
+
+          <p>
+            Each line has a purpose. The flow is linear, top to bottom. Error cases are
+            handled early and explicitly. The transformation at the end is pure—data in, data out.
+          </p>
+
+          <blockquote>
+            <p>
+              "Programs must be written for people to read, and only incidentally
+              for machines to execute."
+            </p>
+          </blockquote>
+
+          <p>
+            This quote from <em>Structure and Interpretation of Computer Programs</em> captures
+            something essential. We spend far more time reading code than writing it. Every
+            moment of clarity we bake in pays dividends.
+          </p>
+
+          <h2>Small Functions, Clear Names</h2>
+
+          <p>
+            One pattern I return to again and again: small functions with descriptive names.
+            Instead of inline complexity, extract and name:
+          </p>
+
+          <pre class="language-javascript"><code>// Instead of this:
+const result = items
+  .filter(item => item.status === 'active' && item.date > cutoff)
+  .map(item => item.value)
+  .reduce((sum, val) => sum + val, 0);
+
+// Consider this:
+const activeItems = items.filter(isActiveAfter(cutoff));
+const total = sumBy(activeItems, 'value');
+
+function isActiveAfter(date) {
+  return item => item.status === 'active' && item.date > date;
+}
+
+function sumBy(items, key) {
+  return items.reduce((sum, item) => sum + item[key], 0);
+}</code></pre>
+
+          <p>
+            The second version has more lines, but each line carries meaning. When you
+            return to this code in six months, you'll thank yourself.
+          </p>
+
+          <h2>The Craft</h2>
+
+          <p>
+            Writing elegant code is a craft. Like woodworking or typography, it rewards
+            attention to detail and develops through practice. There's no formula—only
+            principles and patterns, applied with judgment.
+          </p>
+
+          <p>
+            The goal isn't perfection. It's code that feels <em>right</em>. Code that
+            doesn't fight against you when you need to change it. Code that other
+            developers can understand without a guided tour.
+          </p>
+
+          <p>
+            That's elegance. Not flashy, not clever. Just clear.
+          </p>
+        </div>
+
+        <footer class="post__footer">
+          <a href="/" class="post__back">← Back to all posts</a>
+        </footer>
+      </div>
+    </article>
+  </main>
+
+  <!-- Syntax Highlighting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+
+  <!-- Lightbox -->
+  <script src="../js/lightbox.js"></script>
+</body>
+</html>
