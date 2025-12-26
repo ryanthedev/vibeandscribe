@@ -1,18 +1,21 @@
 /* ============================================
-   THE STUDY - A Warm Dark Editorial Blog
+   VIBE AND SCRIBE - Modern Dark Editorial
    ============================================ */
 
 /* ---------- CSS Variables ---------- */
 :root {
-  /* Colors */
-  --bg-deep: #1a1410;
-  --bg-surface: #2a2018;
-  --bg-code: #151010;
-  --text-cream: #f5efe6;
-  --text-muted: #a89a8c;
-  --accent-gold: #c9a227;
-  --accent-gold-dim: #8a7020;
-  --shadow-warm: rgba(20, 15, 10, 0.6);
+  /* Colors - Matte Charcoal with Gold Accents */
+  --bg-deep: #1a1a1a;
+  --bg-surface: #222222;
+  --bg-elevated: #2a2a2a;
+  --bg-code: #151515;
+  --text-primary: #e8e8e8;
+  --text-cream: #e8e8e8;
+  --text-muted: #707070;
+  --accent-gold: #b8952a;
+  --accent-gold-dim: #7a6420;
+  --accent-gold-glow: rgba(184, 149, 42, 0.15);
+  --shadow-deep: rgba(0, 0, 0, 0.5);
 
   /* Typography */
   --font-display: 'Cormorant Garamond', Georgia, serif;
@@ -56,7 +59,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Wood grain texture overlay */
+/* Retro geometric pattern - subtle art deco vibes */
 body::before {
   content: '';
   position: fixed;
@@ -66,11 +69,15 @@ body::before {
   height: 100%;
   pointer-events: none;
   opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  z-index: 1000;
+  background-image:
+    radial-gradient(circle at center, var(--accent-gold) 1px, transparent 1px),
+    radial-gradient(circle at center, var(--accent-gold) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+  z-index: 0;
 }
 
-/* Vignette effect */
+/* Subtle corner vignette for depth */
 body::after {
   content: '';
   position: fixed;
@@ -79,8 +86,8 @@ body::after {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  background: radial-gradient(ellipse at center, transparent 0%, transparent 50%, rgba(10, 8, 5, 0.4) 100%);
-  z-index: 999;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.3) 100%);
+  z-index: 0;
 }
 
 /* ---------- Typography ---------- */
@@ -322,46 +329,39 @@ figcaption {
 
 /* ---------- Header ---------- */
 .site-header {
-  padding: var(--spacing-md) 0;
+  padding: var(--spacing-lg) 0 var(--spacing-md);
   margin-bottom: var(--spacing-lg);
   border-bottom: 1px solid var(--accent-gold-dim);
 }
 
+.header-link {
+  display: block;
+  text-decoration: none;
+  transition: all var(--transition-medium);
+}
+
+.header-link:hover {
+  text-decoration: none;
+}
+
+.header-link:hover .site-title {
+  color: var(--accent-gold);
+  text-shadow: 0 0 30px var(--accent-gold-glow);
+}
+
 .site-header .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+  text-align: center;
 }
 
 .site-title {
   font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-size: 1.8rem;
+  font-weight: 700;
   color: var(--text-cream);
   text-decoration: none;
-  letter-spacing: 0.02em;
-}
-
-.site-title:hover {
-  color: var(--accent-gold);
-  text-decoration: none;
-}
-
-.site-nav {
-  display: flex;
-  gap: var(--spacing-md);
-}
-
-.site-nav a {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  text-transform: lowercase;
-  letter-spacing: 0.03em;
-}
-
-.site-nav a:hover {
-  color: var(--accent-gold);
-  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  transition: all var(--transition-medium);
 }
 
 /* ---------- Main Content ---------- */
@@ -371,50 +371,96 @@ main {
 
 /* ---------- Post Card (Homepage) ---------- */
 .post-card {
-  margin-bottom: var(--spacing-lg);
+  display: block;
+  margin-bottom: var(--spacing-xl);
+  text-decoration: none;
+  color: inherit;
   transition: transform var(--transition-medium);
 }
 
 .post-card:hover {
-  transform: translateX(4px);
+  transform: translateY(-4px);
+  text-decoration: none;
+}
+
+.post-card:hover .post-card__image img {
+  transform: scale(1.03);
+}
+
+.post-card:hover .post-card__title {
+  color: var(--accent-gold);
 }
 
 .post-card__date {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: var(--text-muted);
-  font-variant: small-caps;
-  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
   margin-bottom: var(--spacing-xs);
+  font-family: var(--font-mono);
+}
+
+.post-card__image {
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(145deg, var(--bg-surface) 0%, var(--bg-elevated) 50%, var(--bg-surface) 100%);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 0.6rem;
+  position: relative;
+  box-shadow: 0 4px 20px var(--shadow-deep);
+}
+
+.post-card__image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 40%,
+    var(--accent-gold-glow) 50%,
+    transparent 60%
+  );
+  opacity: 0.5;
+}
+
+.post-card__image::after {
+  content: '◈';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: var(--accent-gold-dim);
+  opacity: 0.4;
+}
+
+.post-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-medium);
 }
 
 .post-card__title {
   font-family: var(--font-display);
-  font-size: 1.8rem;
-  font-weight: 500;
-  margin-bottom: var(--spacing-xs);
-  line-height: 1.3;
-}
-
-.post-card__title a {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  line-height: 1.35;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   color: var(--text-cream);
-  text-decoration: none;
-}
-
-.post-card__title a:hover {
-  color: var(--accent-gold);
+  transition: color var(--transition-fast);
 }
 
 .post-card__excerpt {
   color: var(--text-muted);
-  margin-bottom: var(--spacing-sm);
+  font-size: 0.95rem;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-
-.post-card__link {
-  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
 /* ---------- Post (Full Article) ---------- */
@@ -496,7 +542,13 @@ main {
   }
 
   .post-card__title {
-    font-size: 1.5rem;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+  }
+
+  .site-title {
+    font-size: 1.3rem;
+    letter-spacing: 0.12em;
   }
 
   .post__content figure.wide {
