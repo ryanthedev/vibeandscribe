@@ -17,6 +17,15 @@
   --accent-gold-glow: rgba(184, 149, 42, 0.15);
   --shadow-deep: rgba(0, 0, 0, 0.5);
 
+  /* Parchment card colors */
+  --bg-parchment: #c9bda3;
+  --bg-parchment-hover: #d4c9b0;
+  --bg-parchment-code: #b8ad94;
+  --text-ink: #2a2520;
+  --text-ink-muted: #5c534a;
+  --accent-sepia: #6e5218;
+  --accent-sepia-dim: #5d4615;
+
   /* Typography */
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-headline: 'Roboto Slab', 'Rockwell', Georgia, serif;
@@ -80,8 +89,8 @@ body {
   opacity: 0.18;
 }
 
-/* Subtle grain overlay for texture cohesion */
-body::before {
+/* Subtle grain overlay for texture cohesion - DISABLED */
+/* body::before {
   content: '';
   position: fixed;
   top: 0;
@@ -93,7 +102,7 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   z-index: 1;
   mix-blend-mode: overlay;
-}
+} */
 
 /* Vignette + top gradient for depth and header readability */
 body::after {
@@ -107,7 +116,7 @@ body::after {
   background:
     linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.25) 15%, transparent 30%),
     radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.3) 100%);
-  z-index: 0;
+  z-index: -1;
 }
 
 /* ---------- Typography ---------- */
@@ -350,7 +359,6 @@ figcaption {
 /* ---------- Header ---------- */
 .site-header {
   padding: var(--spacing-lg) 0 var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
   position: relative;
   z-index: 10;
 }
@@ -398,19 +406,23 @@ main {
   flex-direction: column;
   margin-bottom: var(--spacing-xl);
   padding: var(--spacing-md);
-  background: rgba(22, 22, 22, 0.9);
+  background: var(--bg-parchment);
+  color: var(--text-ink);
   border-radius: 4px;
+  border: 1px solid rgba(110, 82, 24, 0.12);
   box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.4),
-    0 12px 48px rgba(0, 0, 0, 0.25);
+    0 4px 20px rgba(0, 0, 0, 0.15),
+    0 8px 32px rgba(0, 0, 0, 0.1);
   text-decoration: none;
-  color: inherit;
-  transition: transform var(--transition-medium);
+  transition: transform var(--transition-medium), background-color var(--transition-medium);
+  position: relative;
+  z-index: 15;
 }
 
 .post-card:hover {
   transform: translateY(-4px);
   text-decoration: none;
+  background-color: var(--bg-parchment-hover);
 }
 
 .post-card:hover .post-card__image img {
@@ -418,14 +430,14 @@ main {
 }
 
 .post-card:hover .post-card__title {
-  color: var(--accent-gold);
+  color: var(--accent-sepia);
 }
 
 .post-card__date {
   order: 4;
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--text-muted);
+  color: var(--text-ink-muted);
   text-transform: uppercase;
   letter-spacing: 0.15em;
   margin: 0;
@@ -463,7 +475,7 @@ main {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 2rem;
-  color: var(--accent-gold-dim);
+  color: var(--accent-sepia-dim);
   opacity: 0.4;
 }
 
@@ -483,14 +495,13 @@ main {
   margin-bottom: var(--spacing-xs);
   line-height: 1.3;
   letter-spacing: 0.01em;
-  color: var(--text-cream);
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
+  color: var(--text-ink);
   transition: color var(--transition-fast);
 }
 
 .post-card__excerpt {
   order: 3;
-  color: var(--text-cream);
+  color: var(--text-ink);
   font-size: 1rem;
   font-weight: 500;
   display: -webkit-box;
@@ -498,7 +509,12 @@ main {
   -webkit-box-orient: vertical;
   overflow: hidden;
   line-height: 1.6;
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* Post card selection highlight */
+.post-card ::selection {
+  background-color: var(--accent-sepia);
+  color: #fff;
 }
 
 /* ---------- Post (Full Article) ---------- */
@@ -508,12 +524,14 @@ main {
 
 /* Article page - floats above background */
 .post > .container {
-  background: rgba(22, 22, 22, 0.92);
+  background: var(--bg-parchment);
+  color: var(--text-ink);
   padding: var(--spacing-lg) var(--spacing-lg);
   border-radius: 4px;
+  border: 1px solid rgba(110, 82, 24, 0.12);
   box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.4),
-    0 12px 48px rgba(0, 0, 0, 0.25);
+    0 4px 20px rgba(0, 0, 0, 0.15),
+    0 8px 32px rgba(0, 0, 0, 0.1);
   position: relative;
   z-index: 2;
 }
@@ -522,12 +540,12 @@ main {
   text-align: center;
   margin-bottom: var(--spacing-lg);
   padding-bottom: var(--spacing-md);
-  border-bottom: 1px solid var(--accent-gold-dim);
+  border-bottom: 1px solid var(--accent-sepia-dim);
 }
 
 .post__date {
   font-size: 0.85rem;
-  color: var(--text-muted);
+  color: var(--text-ink-muted);
   font-variant: small-caps;
   letter-spacing: 0.1em;
   margin-bottom: var(--spacing-sm);
@@ -536,6 +554,7 @@ main {
 .post__title {
   font-size: 2.8rem;
   margin-bottom: 0;
+  color: var(--text-ink);
 }
 
 .post__content {
@@ -561,16 +580,73 @@ main {
 .post__footer {
   margin-top: var(--spacing-xl);
   padding-top: var(--spacing-md);
-  border-top: 1px solid var(--accent-gold-dim);
+  border-top: 1px solid var(--accent-sepia-dim);
 }
 
 .post__back {
   font-size: 0.9rem;
-  color: var(--text-muted);
+  color: var(--text-ink-muted);
 }
 
 .post__back:hover {
-  color: var(--accent-gold);
+  color: var(--accent-sepia);
+}
+
+/* ---------- Parchment Container Overrides ---------- */
+/* Links inside posts */
+.post > .container a {
+  color: var(--accent-sepia);
+}
+
+.post > .container a:hover {
+  color: var(--text-ink);
+}
+
+/* Headings inside posts */
+.post__content h1,
+.post__content h2,
+.post__content h3,
+.post__content h4 {
+  color: var(--text-ink);
+}
+
+/* Blockquotes */
+.post > .container blockquote {
+  border-left-color: var(--accent-sepia);
+  color: var(--text-ink-muted);
+}
+
+/* List markers */
+.post > .container li::marker {
+  color: var(--accent-sepia-dim);
+}
+
+/* Horizontal rules */
+.post > .container hr {
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--accent-sepia-dim) 20%,
+    var(--accent-sepia-dim) 80%,
+    transparent
+  );
+}
+
+/* Inline code */
+.post > .container code:not(pre code) {
+  background-color: var(--bg-parchment-code);
+  color: var(--text-ink);
+}
+
+/* Figure captions */
+.post > .container figcaption {
+  color: var(--text-ink-muted);
+}
+
+/* Selection highlight */
+.post > .container ::selection {
+  background-color: var(--accent-sepia);
+  color: #fff;
 }
 
 /* ---------- Footer ---------- */
