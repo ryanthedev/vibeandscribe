@@ -29,11 +29,11 @@
   /* Typography */
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-headline: 'Roboto Slab', 'Rockwell', Georgia, serif;
-  --font-body: 'Literata', 'Source Serif Pro', Georgia, serif;
+  --font-body: 'Spectral', 'Charter', Georgia, serif;
   --font-mono: 'JetBrains Mono', 'IBM Plex Mono', monospace;
 
   /* Spacing */
-  --content-width: 700px;
+  --content-width: 800px;
   --content-wide: 800px;
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
@@ -407,8 +407,8 @@ main {
   margin-bottom: var(--spacing-xl);
   padding: calc(var(--spacing-md) + 8px);
   background:
-    /* Paper texture grain */
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"),
+    /* Paper texture grain - blurred and subtle */
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.4' numOctaves='2' stitchTiles='stitch'/%3E%3CfeGaussianBlur stdDeviation='0.8'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.3'/%3E%3C/svg%3E"),
     /* Aged paper gradient */
     linear-gradient(168deg,
       #d4c9b0 0%,
@@ -418,7 +418,7 @@ main {
       #d1c5aa 85%,
       #c5b89c 100%
     );
-  background-blend-mode: soft-light, normal;
+  background-blend-mode: overlay, normal;
   color: var(--text-ink);
   border-radius: 3px;
   text-decoration: none;
@@ -535,16 +535,7 @@ main {
   content: '';
   position: absolute;
   inset: 0;
-  background:
-    /* Vignette */
-    radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.3) 100%),
-    /* Subtle light streak */
-    linear-gradient(
-      135deg,
-      transparent 40%,
-      rgba(184, 149, 42, 0.08) 50%,
-      transparent 60%
-    );
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.3) 100%);
   z-index: 1;
 }
 
@@ -574,7 +565,7 @@ main {
   font-weight: 500;
   margin-top: 0;
   margin-bottom: var(--spacing-xs);
-  line-height: 1.3;
+  line-height: 1.2;
   letter-spacing: 0.01em;
   color: var(--text-ink);
   transition: color var(--transition-fast);
@@ -582,14 +573,15 @@ main {
 
 .post-card__excerpt {
   order: 3;
-  color: var(--text-ink);
+  color: #1a1815;
   font-size: 1rem;
   font-weight: 500;
+  letter-spacing: -0.01em;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 /* Post card selection highlight */
@@ -605,41 +597,128 @@ main {
 
 /* Article page - floats above background */
 .post > .container {
-  background: var(--bg-parchment);
+  background:
+    /* Paper texture grain - blurred and subtle */
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.4' numOctaves='2' stitchTiles='stitch'/%3E%3CfeGaussianBlur stdDeviation='0.8'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.3'/%3E%3C/svg%3E"),
+    /* Aged paper gradient */
+    linear-gradient(168deg,
+      #d4c9b0 0%,
+      #c9bda3 15%,
+      #c2b598 40%,
+      #c9bda3 60%,
+      #d1c5aa 85%,
+      #c5b89c 100%
+    );
+  background-blend-mode: overlay, normal;
   color: var(--text-ink);
-  padding: var(--spacing-lg) var(--spacing-lg);
-  border-radius: 4px;
-  border: 1px solid rgba(110, 82, 24, 0.12);
-  box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.15),
-    0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: calc(var(--spacing-lg) + 8px);
+  border-radius: 3px;
   position: relative;
   z-index: 2;
+
+  /* Layered paper depth effect */
+  box-shadow:
+    /* Main card shadow */
+    0 2px 4px rgba(0, 0, 0, 0.08),
+    0 8px 24px rgba(0, 0, 0, 0.12),
+    0 20px 48px rgba(0, 0, 0, 0.15),
+    /* Stacked pages underneath - first page */
+    3px 3px 0 -1px #bfb49a,
+    4px 4px 0 -1px rgba(90, 70, 40, 0.15),
+    /* Second stacked page */
+    6px 6px 0 -2px #b8ad8f,
+    7px 7px 0 -2px rgba(90, 70, 40, 0.12),
+    /* Third stacked page */
+    9px 9px 0 -3px #b0a586,
+    10px 10px 0 -3px rgba(90, 70, 40, 0.1);
+}
+
+/* Decorative inner border for article */
+.post > .container::after {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(110, 82, 24, 0.25);
+  border-radius: 2px;
+  pointer-events: none;
+  background:
+    /* Corner ornaments */
+    radial-gradient(circle at 0% 0%, rgba(110, 82, 24, 0.4) 0%, transparent 8px),
+    radial-gradient(circle at 100% 0%, rgba(110, 82, 24, 0.4) 0%, transparent 8px),
+    radial-gradient(circle at 0% 100%, rgba(110, 82, 24, 0.4) 0%, transparent 8px),
+    radial-gradient(circle at 100% 100%, rgba(110, 82, 24, 0.4) 0%, transparent 8px);
 }
 
 .post__header {
   text-align: center;
-  margin-bottom: var(--spacing-lg);
-  padding-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+  padding-bottom: var(--spacing-sm);
   border-bottom: 1px solid var(--accent-sepia-dim);
 }
 
 .post__date {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--text-ink-muted);
   font-variant: small-caps;
   letter-spacing: 0.1em;
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
 }
 
 .post__title {
-  font-size: 2.8rem;
+  font-size: 2.4rem;
   margin-bottom: 0;
   color: var(--text-ink);
+  line-height: 1.2;
+}
+
+/* Cover image for posts */
+.post__cover {
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(145deg, var(--bg-surface) 0%, var(--bg-elevated) 50%, var(--bg-surface) 100%);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: var(--spacing-sm);
+  position: relative;
+  box-shadow:
+    inset 0 2px 8px rgba(0, 0, 0, 0.4),
+    inset 0 0 20px rgba(0, 0, 0, 0.2),
+    0 1px 0 rgba(255, 255, 255, 0.3),
+    0 4px 12px rgba(0, 0, 0, 0.25);
+  border: 3px solid rgba(90, 70, 40, 0.3);
+}
+
+.post__cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.3) 100%);
+  z-index: 1;
+}
+
+.post__cover::after {
+  content: '❦';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  color: var(--accent-gold-dim);
+  opacity: 0.35;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.post__cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .post__content {
-  font-size: 1.05rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #1a1815;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
 }
 
 .post__content > * + * {
@@ -751,6 +830,24 @@ main {
   .post-card__title {
     font-size: 1rem;
     letter-spacing: 0.04em;
+  }
+
+  .post-card {
+    padding: var(--spacing-sm);
+  }
+
+  .post > .container {
+    padding: var(--spacing-sm);
+  }
+
+  .post__content {
+    font-size: 1.1rem;
+  }
+
+  /* Reduce decorative inner border inset on mobile */
+  .post-card::after,
+  .post > .container::after {
+    inset: 6px;
   }
 
   .site-title {
